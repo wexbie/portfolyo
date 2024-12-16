@@ -1,0 +1,15 @@
+RewriteEngine On
+RewriteRule ^mail$ src/sunucuS/mail.php [L]
+Options -Indexes
+
+<FilesMatch "\.(env|htaccess|ini|log|txt|sh)$">
+    Require all denied
+</FilesMatch>
+
+RewriteCond %{QUERY_STRING} (\<|%3C|%3E|%22|\") [NC,OR]
+RewriteCond %{QUERY_STRING} (\%27|') [NC]
+RewriteRule .* - [F,L]
+
+DirectoryIndex index.html
+
+ErrorDocument 404 /404.html
